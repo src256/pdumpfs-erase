@@ -73,14 +73,12 @@ class PdumpfsEraserOption
     detect_month_keep_dirs(backup_dirs)
     detect_week_keep_dirs(backup_dirs)
     detect_day_keep_dirs(backup_dirs)
-#    p backup_dirs
   end
   
   private
   def keep_dirs(backup_dirs, num)
     num.downto(0) do |i|
       from_date, to_date = yield(i)
-#      puts "#{from_date} => #{to_date}"
       dirs = BackupDir.find(backup_dirs, from_date, to_date)
       dirs[0].keep = true if dirs.size > 0
     end
